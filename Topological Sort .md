@@ -1,4 +1,4 @@
-# Ex. No: 18D - Travelling Salesman Problem (TSP)
+# Ex. No: 18D - Topological Sort (TSP)
 
 ## AIM:
 To write a Python program to perform Topological Sorting of a Directed Acyclic Graph (DAG) using Depth First Search (DFS).
