@@ -1,31 +1,71 @@
-# Ex. No: 18E - Count the Number of Triangles in an Undirected Graph
+# Ex. No: 18E - Python program to generate a graph for a given fixed degree sequence.
 
 ## AIM:
-To write a Python program to **count the number of triangles** present in an **undirected graph** using matrix operations.
+To write a Python program that generates an undirected graph for a given fixed degree sequence without allowing self-loops or multiple edges, and to display its adjacency matrix.
 
 ## ALGORITHM:
 
-**Step 1**: Initialize a matrix `aux2` to store the square of the adjacency matrix (i.e., `graph²`).  
-Also, initialize a matrix `aux3` to store the cube of the adjacency matrix (i.e., `graph³`).
+**Step 1** : Start.
 
-**Step 2**: Multiply the adjacency matrix with itself to compute `aux2 = graph × graph`.
+**Step 2** : Take input for the number of nodes (n) and read the degree sequence list degseq of size n.
 
-**Step 3**: Multiply `aux2` with the adjacency matrix again to compute `aux3 = aux2 × graph`.
+**Step 3** : Initialize an n x n adjacency matrix with all zeros.
 
-**Step 4**: Compute the **trace** of the matrix `aux3` (i.e., the sum of diagonal elements of the matrix).
+**Step 4** : Traverse all pairs (i, j) where i < j:
 
-**Step 5**: Divide the trace by **6** to get the number of triangles in the graph.  
-*(Each triangle is counted six times in the trace — twice per vertex and once per direction.)*
+       - If both degseq[i] > 0 and degseq[j] > 0, then:
 
-**Step 6**: Return the result.
+       - Add an edge between node i and node j by setting mat[i][j] = 1 and mat[j][i] = 1.
+
+       - Decrement degseq[i] and degseq[j] by 1.
+
+**Step 5** : After all possible edges are added (based on the degree sequence), print the adjacency matrix.
+
+**Step 6** : End.
 
 ## PYTHON PROGRAM
 
 ```
+# Python3 program to generate a graph
+# for a given fixed degrees
+
+# A function to print the adjacency matrix.
+def printMat(degseq, n):
+    mat=[[0]*n for i in range(n)]
+    for i in range(n):
+        for j in range(i+1,n):
+            if (degseq[i]>0 and degseq[j]>0):
+                degseq[i]-=1
+                degseq[j]-=1
+                mat[i][j]=1
+                mat[j][i]=1
+    print("      ", end ="")
+    for i in range(n):
+        print(" ", "(", i, ")", end ="")
+    print()
+    print()
+    for i in range(n):
+        print("  ", "(", i, ")", end = " ")
+        for j in range(n):
+            print("  ", mat[i][j], end = " ")
+        print()
+
+# Driver Code
+degseq=[]
+for i in range(0, 5):
+    ele = int(input())
+  
+    degseq.append(ele)
+#degseq =[v0,v1,v2,v3,v4]
+
+n = len(degseq)
+printMat(degseq, n)
+
 ```
 
 ## OUTPUT
-```
-```
+![image](https://github.com/user-attachments/assets/e53ad349-6ee9-4fbe-85b7-21e9097aa13b)
+
 
 ## RESULT
+Thus the Python program to generate a graph for a given fixed degree sequence is implemented and executed successfully. 
