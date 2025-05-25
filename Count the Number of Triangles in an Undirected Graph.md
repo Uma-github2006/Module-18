@@ -1,77 +1,76 @@
-# Ex. No: 18E - Count the Number of Triangles in an Undirected Graph
+# Ex. No: 18E - Python program to generate a graph for a given fixed degree sequence.
 
 ## AIM:
-To write a Python program to **count the number of triangles** present in an **undirected graph** using matrix operations.
+To write a Python program that generates an undirected graph for a given fixed degree sequence without allowing self-loops or multiple edges, and to display its adjacency matrix.
+
 
 ## ALGORITHM:
 
-**Step 1**: Initialize a matrix `aux2` to store the square of the adjacency matrix (i.e., `graph²`).  
-Also, initialize a matrix `aux3` to store the cube of the adjacency matrix (i.e., `graph³`).
+**Step 1**: Start.
 
-**Step 2**: Multiply the adjacency matrix with itself to compute `aux2 = graph × graph`.
+**Step 2** : Take input for the number of nodes (n) and read the degree sequence list degseq of size n.
 
-**Step 3**: Multiply `aux2` with the adjacency matrix again to compute `aux3 = aux2 × graph`.
+**Step 3** : Initialize an n x n adjacency matrix with all zeros.
 
-**Step 4**: Compute the **trace** of the matrix `aux3` (i.e., the sum of diagonal elements of the matrix).
+**Step 4** : Traverse all pairs (i, j) where i < j:
 
-**Step 5**: Divide the trace by **6** to get the number of triangles in the graph.  
-*(Each triangle is counted six times in the trace — twice per vertex and once per direction.)*
+	-If both degseq[i] > 0 and degseq[j] > 0, then:
 
-**Step 6**: Return the result.
+	-Add an edge between node i and node j by setting mat[i][j] = 1 and mat[j][i] = 1.
+
+	-Decrement degseq[i] and degseq[j] by 1.
+
+**Step 5** : After all possible edges are added (based on the degree sequence), print the adjacency matrix.
+
+**Step 6** : End.
+
+
 
 ## PYTHON PROGRAM
 
-```
-def multiply(A, B, C):
-	global V
-	for i in range(V):
-		for j in range(V):
-			C[i][j] = 0
-			for k in range(V):
-				C[i][j] += A[i][k] * B[k][j]
+# Python3 program to generate a graph
+# for a given fixed degrees
 
-def getTrace(graph):
-	global V
-	trace = 0
-	for i in range(V):
-		trace += graph[i][i]
-	return trace
+# A function to print the adjacency matrix.
+def printMat(degseq, n):
+    mat=[[0]*n for i in range(n)]
+    for i in range(n):
+        for j in range(i+1,n):
+            if (degseq[i]>0 and degseq[j]>0):
+                degseq[i]-=1
+                degseq[j]-=1
+                mat[i][j]=1
+                mat[j][i]=1
+    print("      ", end ="")
+    for i in range(n):
+        print(" ", "(", i, ")", end ="")
+    print()
+    print()
+    for i in range(n):
+        print("  ", "(", i, ")", end = " ")
+        for j in range(n):
+            print("  ", mat[i][j], end = " ")
+        print()
 
-def triangleInGraph(graph):
-	global V
-	
-	# To Store graph^2
-	aux2 = [[None] * V for i in range(V)]
-	aux3 = [[None] * V for i in range(V)]
+# Driver Code
+degseq=[]
+for i in range(0, 5):
+    ele = int(input())
+  
+    degseq.append(ele)
+#degseq =[v0,v1,v2,v3,v4]
 
+n = len(degseq)
+printMat(degseq, n)
 
-	# Initialising aux
-	# matrices with 0
-	for i in range(V):
-		for j in range(V):
-			aux2[i][j] = aux3[i][j] = 0
-
-	# aux2 is graph^2 now printMatrix(aux2)
-	multiply(graph, graph, aux2)
-	multiply(graph, aux2,aux3)
-	trace=getTrace(aux3)
-	return trace//6
-
-V = int(input())
-graph = [[0, 1, 1, 0],
-		[1, 0, 1, 1],
-		[1, 1, 0, 1],
-		[0, 1, 1, 0]]
-
-print("Total number of Triangle in Graph :",
-					triangleInGraph(graph))
 
 ```
 
 ## OUTPUT
 
-![image](https://github.com/user-attachments/assets/e6524c93-feec-47c5-b265-380aa994a24d)
+![image](https://github.com/user-attachments/assets/7b1af859-6520-4f43-a73e-1b0dda97b3af)
+
 
 
 ## RESULT
-Thus the Python program to count the number of triangles present in an undirected graph using matrix operations is implemented and executed successfuly.
+Thus the  Python program to generate a graph for a given fixed degree sequence implemented and executed successfuly.
